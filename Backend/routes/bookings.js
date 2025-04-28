@@ -2,18 +2,15 @@ const express = require('express');
 const router = express.Router();
 const Booking = require('../models/booking');
 
-
 router.get('/', async (req, res) => {
     try {
-       
-        const userId = 1; 
+        const userId = req.user.id; // Get user ID from auth middleware
         const bookings = await Booking.getAll(userId);
         res.json(bookings);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
-
 
 router.post('/', async (req, res) => {
     try {
@@ -44,10 +41,8 @@ router.post('/', async (req, res) => {
     }
 });
 
-
 router.put('/:id', async (req, res) => {
     try {
-        
         const userId = 1; 
         const success = await Booking.update(req.params.id, { ...req.body, user_id: userId });
         if (success) {
@@ -60,10 +55,8 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-
 router.delete('/:id', async (req, res) => {
     try {
-        
         const userId = 1; 
         const success = await Booking.delete(req.params.id, userId);
         if (success) {
