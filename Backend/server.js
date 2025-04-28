@@ -8,6 +8,7 @@ const app = express();
 
 // Import routers
 const auth = require('./middleware/auth');
+const adminAuth = require('./middleware/adminAuth');
 const usersRouter = require('./routes/users');
 const servicesRouter = require('./routes/services');
 const bookingsRouter = require('./routes/bookings');
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use('/api/users', usersRouter);
 app.use('/api/services', servicesRouter);
 app.use('/api/bookings', auth, bookingsRouter);
+app.use('/api/admin/services', [auth, adminAuth], servicesRouter);
 
 // Basic route
 app.get('/', (req, res) => {

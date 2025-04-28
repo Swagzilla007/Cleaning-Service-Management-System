@@ -33,6 +33,7 @@ function Navbar() {
             <>
               <Button color="inherit" component={RouterLink} to="/login">Login</Button>
               <Button color="inherit" component={RouterLink} to="/register">Register</Button>
+              <Button color="inherit" component={RouterLink} to="/admin/login">Admin Login</Button>
             </>
           )}
         </Box>

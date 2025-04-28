@@ -9,6 +9,8 @@ import Services from './pages/Services';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
+import AdminLogin from './pages/AdminLogin';
+import AdminServices from './pages/AdminServices';
 
 const theme = createTheme({
   palette: {
@@ -41,11 +43,14 @@ function App() {
               } />
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
+              <Route path="admin/login" element={<AdminLogin />} />
               <Route
-                path="admin/services"
+                path="admin/*"
                 element={
                   <AdminRoute>
-                    <Services adminView={true} />
+                    <Routes>
+                      <Route path="services" element={<AdminServices />} />
+                    </Routes>
                   </AdminRoute>
                 }
               />

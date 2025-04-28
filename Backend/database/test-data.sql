@@ -11,7 +11,7 @@ INSERT INTO users (username, password_hash) VALUES
 
 -- Insert admin user (password: admin123)
 INSERT INTO users (username, password_hash, is_admin) VALUES 
-('admin', '$2a$08$YV/Fx3RiC3G6O1R9MDYyDO1j2K7hJM/H8jYBmvXrOBBLT3T6TPAT6', true);
+('admin', '$2a$08$2I7J2hKq9T8OhSxlw1a0p.EvdBiS4MyX0H.gqvKGtaULTzSbf0hFm', true);
 
 -- Insert test bookings
 INSERT INTO bookings (customer_name, address, date_time, service_id, user_id) VALUES

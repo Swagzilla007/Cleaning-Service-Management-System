@@ -13,12 +13,21 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/', auth, adminAuth, async (req, res) => {
+router.post('/', auth, async (req, res) => {
     try {
         const { name } = req.body;
+        
+        if (!name || !name.trim()) {
+            return res.status(400).json({ message: 'Service name is required' });
+        }
+
+        console.log('Creating service:', name); // Debug log
         const newServiceId = await Service.create(name);
-        res.status(201).json({ id: newServiceId });
+        console.log('Service created with ID:', newServiceId); // Debug log
+
+        res.status(201).json({ id: newServiceId, name });
     } catch (error) {
+        console.error('Service creation error:', error);
         res.status(400).json({ message: error.message });
     }
 });

@@ -1,15 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Box, Typography, Grid, Card, CardContent, Button, TextField, CircularProgress } from '@mui/material';
-import { useAuth } from '../context/AuthContext';
-import Notification from '../components/Notification';
+import { Box, Typography, Grid, Card, CardContent } from '@mui/material';
 import api from '../utils/api';
+import Notification from '../components/Notification';
 
 function Services() {
-  const [loading, setLoading] = useState(true);
-  const [notification, setNotification] = useState({ open: false, message: '', severity: 'info' });
-  const [newService, setNewService] = useState('');
-  const { user } = useAuth();
   const [services, setServices] = useState([]);
+  const [notification, setNotification] = useState({ open: false, message: '', severity: 'info' });
 
   useEffect(() => {
     loadServices();
@@ -19,27 +15,10 @@ function Services() {
     try {
       const { data } = await api.get('/services');
       setServices(data);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error loading services:', error);
-      setLoading(false);
-    }
-  };
-
-  const handleAddService = async () => {
-    try {
-      await api.post('/services', { name: newService });
-      setNewService('');
-      loadServices();
-      setNotification({
-        open: true,
-        message: 'Service added successfully',
-        severity: 'success'
-      });
     } catch (error) {
       setNotification({
         open: true,
-        message: error.response?.data?.message || 'Failed to add service',
+        message: 'Failed to load services',
         severity: 'error'
       });
     }
@@ -47,64 +26,18 @@ function Services() {
 
   return (
     <Box>
-      {user?.isAdmin && (
-        <Box sx={{ mb: 4 }}>
-          <Typography variant="h4" gutterBottom>Manage Services</Typography>
-          <Box sx={{ display: 'flex', gap: 2 }}>
-            <TextField
-              label="New Service Name"
-              value={newService}
-              onChange={(e) => setNewService(e.target.value)}
-            />
-            <Button 
-              variant="contained" 
-              onClick={handleAddService}
-              disabled={!newService.trim()}
-            >
-              Add Service
-            </Button>
-          </Box>
-        </Box>
-      )}
-
       <Typography variant="h4" gutterBottom>Our Services</Typography>
-      
-      {loading ? (
-        <Box display="flex" justifyContent="center" m={4}>
-          <CircularProgress />
-        </Box>
-      ) : (
-        <>
-          {user && (
-            <Box sx={{ mt: 4, mb: 2 }}>
-              <TextField
-                label="New Service Name"
-                value={newService}
-                onChange={(e) => setNewService(e.target.value)}
-                sx={{ mr: 2 }}
-              />
-              <Button 
-                variant="contained" 
-                onClick={handleAddService}
-                disabled={!newService.trim()}
-              >
-                Add Service
-              </Button>
-            </Box>
-          )}
-          <Grid container spacing={3}>
-            {services.map((service) => (
-              <Grid item xs={12} sm={6} md={4} key={service.id}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="h6">{service.name}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
+      <Grid container spacing={3}>
+        {services.map((service) => (
+          <Grid item xs={12} sm={6} md={4} key={service.id}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6">{service.name}</Typography>
+              </CardContent>
+            </Card>
           </Grid>
-        </>
-      )}
+        ))}
+      </Grid>
       <Notification
         open={notification.open}
         message={notification.message}
