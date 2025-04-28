@@ -22,6 +22,11 @@ function Navbar() {
             <>
               <Button color="inherit" component={RouterLink} to="/">Bookings</Button>
               <Button color="inherit" component={RouterLink} to="/services">Services</Button>
+              {user.isAdmin && (
+                <Button color="inherit" component={RouterLink} to="/admin/services">
+                  Manage Services
+                </Button>
+              )}
               <Button color="inherit" onClick={handleLogout}>Logout</Button>
             </>
           ) : (

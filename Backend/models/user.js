@@ -15,17 +15,28 @@ class User {
     static async login(username, password) {
         const [users] = await db.query('SELECT * FROM users WHERE username = ?', [username]);
         const user = users[0];
-        if (!user) {
+        
+        if (!user || !(await bcrypt.compare(password, user.password_hash))) {
             throw new Error('Invalid credentials');
         }
 
-        const isMatch = await bcrypt.compare(password, user.password_hash);
-        if (!isMatch) {
-            throw new Error('Invalid credentials');
-        }
+        const token = jwt.sign(
+            { 
+                id: user.id,
+                isAdmin: Boolean(user.is_admin)
+            }, 
+            process.env.JWT_SECRET, 
+            { expiresIn: '24h' }
+        );
 
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '24h' });
-        return { user: { id: user.id, username: user.username }, token };
+        return {
+            user: {
+                id: user.id,
+                username: user.username,
+                isAdmin: Boolean(user.is_admin)
+            },
+            token
+        };
     }
 }
 

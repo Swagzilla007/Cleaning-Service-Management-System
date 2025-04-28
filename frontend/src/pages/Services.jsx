@@ -39,7 +39,7 @@ function Services() {
     } catch (error) {
       setNotification({
         open: true,
-        message: 'Failed to add service',
+        message: error.response?.data?.message || 'Failed to add service',
         severity: 'error'
       });
     }
@@ -47,6 +47,26 @@ function Services() {
 
   return (
     <Box>
+      {user?.isAdmin && (
+        <Box sx={{ mb: 4 }}>
+          <Typography variant="h4" gutterBottom>Manage Services</Typography>
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <TextField
+              label="New Service Name"
+              value={newService}
+              onChange={(e) => setNewService(e.target.value)}
+            />
+            <Button 
+              variant="contained" 
+              onClick={handleAddService}
+              disabled={!newService.trim()}
+            >
+              Add Service
+            </Button>
+          </Box>
+        </Box>
+      )}
+
       <Typography variant="h4" gutterBottom>Our Services</Typography>
       
       {loading ? (

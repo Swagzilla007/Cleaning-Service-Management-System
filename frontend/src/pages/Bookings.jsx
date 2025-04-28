@@ -64,44 +64,54 @@ function Bookings() {
         service_id: parseInt(formData.service_id, 10)
       };
 
-      console.log('Sending booking data:', formattedData); // Debug log
-      const response = await api.post('/bookings', formattedData);
-      console.log('Booking response:', response.data); // Debug log
+      let response;
+      if (editingId) {
+        response = await api.put(`/bookings/${editingId}`, formattedData);
+      } else {
+        response = await api.post('/bookings', formattedData);
+      }
 
-      await loadBookings(); // Reload bookings after successful creation
-      resetForm();
       setNotification({
         open: true,
-        message: 'Booking created successfully',
+        message: `Booking ${editingId ? 'updated' : 'created'} successfully`,
         severity: 'success'
       });
+      await loadBookings();
+      resetForm();
     } catch (error) {
-      console.error('Booking error:', error.response?.data); // Debug log
+      console.error('Booking error:', error);
       setNotification({
         open: true,
-        message: error.response?.data?.message || 'Failed to create booking',
+        message: error.response?.data?.message || 'Failed to save booking',
         severity: 'error'
       });
     }
   };
 
   const handleDelete = async (id) => {
-    try {
-      await api.delete(`/bookings/${id}`);
-      loadBookings();
-      setNotification({
-        open: true,
-        message: 'Booking deleted successfully',
-        severity: 'success'
-      });
-    } catch (error) {
-      setNotification({
-        open: true,
-        message: 'Failed to delete booking',
-        severity: 'error'
-      });
+    if (!window.confirm('Are you sure you want to delete this booking?')) {
+        return;
     }
-  };
+
+    try {
+        const response = await api.delete(`/bookings/${id}`);
+        if (response.status === 200) {
+            setNotification({
+                open: true,
+                message: 'Booking deleted successfully',
+                severity: 'success'
+            });
+            await loadBookings();
+        }
+    } catch (error) {
+        console.error('Delete error:', error.response?.data);
+        setNotification({
+            open: true,
+            message: error.response?.data?.message || 'Failed to delete booking',
+            severity: 'error'
+        });
+    }
+};
 
   const handleEdit = (booking) => {
     setFormData({

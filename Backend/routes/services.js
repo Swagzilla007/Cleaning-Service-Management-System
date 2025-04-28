@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Service = require('../models/service');
 const auth = require('../middleware/auth');
-
+const adminAuth = require('../middleware/adminAuth');
 
 router.get('/', async (req, res) => {
     try {
@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/', auth, async (req, res) => {
+router.post('/', auth, adminAuth, async (req, res) => {
     try {
         const { name } = req.body;
         const newServiceId = await Service.create(name);
@@ -23,7 +23,7 @@ router.post('/', auth, async (req, res) => {
     }
 });
 
-router.put('/:id', auth, async (req, res) => {
+router.put('/:id', auth, adminAuth, async (req, res) => {
     try {
         const success = await Service.update(req.params.id, req.body.name);
         if (success) {
@@ -36,7 +36,7 @@ router.put('/:id', auth, async (req, res) => {
     }
 });
 
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/:id', auth, adminAuth, async (req, res) => {
     try {
         const success = await Service.delete(req.params.id);
         if (success) {

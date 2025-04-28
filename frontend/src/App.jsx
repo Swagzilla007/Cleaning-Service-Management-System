@@ -8,6 +8,7 @@ import Bookings from './pages/Bookings';
 import Services from './pages/Services';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminRoute from './components/AdminRoute';
 
 const theme = createTheme({
   palette: {
@@ -40,6 +41,14 @@ function App() {
               } />
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
+              <Route
+                path="admin/services"
+                element={
+                  <AdminRoute>
+                    <Services adminView={true} />
+                  </AdminRoute>
+                }
+              />
             </Route>
           </Routes>
         </BrowserRouter>
