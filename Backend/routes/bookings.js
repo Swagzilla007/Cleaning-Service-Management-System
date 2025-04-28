@@ -17,12 +17,29 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-       
-        const userId = 1; 
-        const booking = { ...req.body, user_id: userId };
+        const { customer_name, address, date_time, service_id } = req.body;
+        
+        // Validate required fields
+        if (!customer_name || !address || !date_time || !service_id) {
+            return res.status(400).json({ 
+                message: 'Missing required fields',
+                required: ['customer_name', 'address', 'date_time', 'service_id']
+            });
+        }
+
+        const userId = req.user.id; // Get user ID from auth middleware
+        const booking = { 
+            customer_name, 
+            address, 
+            date_time: new Date(date_time), 
+            service_id,
+            user_id: userId 
+        };
+
         const newBookingId = await Booking.create(booking);
         res.status(201).json({ id: newBookingId });
     } catch (error) {
+        console.error('Booking creation error:', error);
         res.status(400).json({ message: error.message });
     }
 });

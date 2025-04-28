@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Bookings from './pages/Bookings';
 import Services from './pages/Services';
 import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const theme = createTheme({
   palette: {
@@ -27,8 +28,16 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={<Bookings />} />
-              <Route path="services" element={<Services />} />
+              <Route index element={
+                <ProtectedRoute>
+                  <Bookings />
+                </ProtectedRoute>
+              } />
+              <Route path="services" element={
+                <ProtectedRoute>
+                  <Services />
+                </ProtectedRoute>
+              } />
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
             </Route>

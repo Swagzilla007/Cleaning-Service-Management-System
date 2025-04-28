@@ -6,21 +6,23 @@ dotenv.config();
 
 const app = express();
 
+// Import routers
+const auth = require('./middleware/auth');
+const usersRouter = require('./routes/users');
+const servicesRouter = require('./routes/services');
+const bookingsRouter = require('./routes/bookings');
 
+// Middleware
 app.use(cors({
-    origin: 'http://localhost:3000', 
+    origin: 'http://localhost:5173', // Updated to match Vite's default port
     credentials: true
 }));
 app.use(express.json());
 
-const auth = require('./middleware/auth');
-const usersRouter = require('./routes/users');
-const servicesRouter = require('./routes/services');
-
 // Routes
 app.use('/api/users', usersRouter);
-app.use('/api/bookings', auth, bookingsRouter);
 app.use('/api/services', servicesRouter);
+app.use('/api/bookings', auth, bookingsRouter);
 
 // Basic route
 app.get('/', (req, res) => {
