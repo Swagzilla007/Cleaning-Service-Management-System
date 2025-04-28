@@ -12,10 +12,12 @@ app.use(express.json());
 
 const auth = require('./middleware/auth');
 const usersRouter = require('./routes/users');
+const servicesRouter = require('./routes/services');
 
 // Routes
 app.use('/api/users', usersRouter);
 app.use('/api/bookings', auth, bookingsRouter);
+app.use('/api/services', servicesRouter);
 
 // Basic route
 app.get('/', (req, res) => {
