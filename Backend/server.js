@@ -10,9 +10,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const auth = require('./middleware/auth');
+const usersRouter = require('./routes/users');
+
 // Routes
-const bookingsRouter = require('./routes/bookings');
-app.use('/api/bookings', bookingsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/bookings', auth, bookingsRouter);
 
 // Basic route
 app.get('/', (req, res) => {
