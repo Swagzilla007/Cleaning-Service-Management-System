@@ -6,8 +6,11 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
-app.use(cors());
+
+app.use(cors({
+    origin: 'http://localhost:3000', 
+    credentials: true
+}));
 app.use(express.json());
 
 const auth = require('./middleware/auth');
@@ -22,6 +25,20 @@ app.use('/api/services', servicesRouter);
 // Basic route
 app.get('/', (req, res) => {
     res.json({ message: "Welcome to Cleaning Service Management System API" });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ 
+        message: 'Something went wrong!',
+        error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
+});
+
+// Handle 404 routes
+app.use((req, res) => {
+    res.status(404).json({ message: 'Route not found' });
 });
 
 const PORT = process.env.PORT || 5000;
