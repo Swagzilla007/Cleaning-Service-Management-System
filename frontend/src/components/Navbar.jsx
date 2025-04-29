@@ -13,7 +13,15 @@ function Navbar() {
 
   return (
     <AppBar position="static">
-      <Toolbar>
+      <Toolbar sx={{ 
+        backgroundColor: '#2C2E43',
+        '& .MuiButton-root': {
+          '&:hover': {
+            backgroundColor: '#FBD64A',
+            color: '#2C2E43'
+          }
+        }
+      }}>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Cleaning Service
         </Typography>

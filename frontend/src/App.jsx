@@ -16,10 +16,50 @@ import AdminDashboard from './pages/AdminDashboard';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2',
+      main: '#2C2E43',
+      contrastText: '#FFFFFF',
     },
     secondary: {
-      main: '#dc004e',
+      main: '#FBD64A',
+      contrastText: '#2C2E43',
+    },
+    background: {
+      default: '#FFFFFF',
+      paper: '#FFFFFF',
+    },
+    text: {
+      primary: '#2C2E43',
+      secondary: '#2C2E43',
+    }
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        contained: {
+          backgroundColor: '#2C2E43',
+          color: '#FFFFFF',
+          '&:hover': {
+            backgroundColor: '#FBD64A',
+            color: '#2C2E43',
+          },
+        },
+        outlined: {
+          borderColor: '#2C2E43',
+          color: '#2C2E43',
+          '&:hover': {
+            borderColor: '#FBD64A',
+            color: '#FBD64A',
+          },
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#2C2E43',
+          color: '#FFFFFF',
+        },
+      },
     },
   },
 });

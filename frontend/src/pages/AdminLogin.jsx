@@ -39,9 +39,55 @@ function AdminLogin() {
   };
 
   return (
-    <Box sx={{ maxWidth: 400, mx: 'auto', mt: 4 }}>
-      <Paper sx={{ p: 4 }}>
-        <Typography variant="h5" gutterBottom>Admin Login</Typography>
+    <Box sx={{ 
+      minHeight: 'calc(100vh - 64px)',
+      width: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'relative',
+    }}>
+      <Paper 
+        elevation={3} 
+        sx={{ 
+          maxWidth: 400,
+          width: '100%',
+          p: 4,
+          borderRadius: 2,
+          backgroundColor: 'rgba(44, 46, 67, 0.85)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.37)',
+          '& .MuiInputLabel-root': {
+            color: '#FBD64A',
+            '&.Mui-focused': {
+              color: '#FBD64A'
+            }
+          },
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: 'rgba(251, 214, 74, 0.5)'
+            },
+            '&:hover fieldset': {
+              borderColor: '#FBD64A'
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#FBD64A'
+            },
+            '& input': {
+              color: '#FFFFFF'
+            }
+          }
+        }}
+      >
+        <Typography 
+          variant="h4" 
+          gutterBottom 
+          align="center" 
+          sx={{ mb: 4, fontWeight: 'bold', color: 'white' }}
+        >
+          Admin Login
+        </Typography>
         <Box component="form" onSubmit={handleSubmit}>
           <TextField
             fullWidth
@@ -58,7 +104,21 @@ function AdminLogin() {
             value={credentials.password}
             onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
           />
-          <Button fullWidth variant="contained" type="submit" sx={{ mt: 2 }}>
+          <Button 
+            fullWidth 
+            variant="contained" 
+            type="submit" 
+            size="large"
+            sx={{ 
+              mt: 3, 
+              mb: 2,
+              bgcolor: '#FBD64A',
+              color: '#2C2E43',
+              '&:hover': {
+                bgcolor: 'rgba(251, 214, 74, 0.8)'
+              }
+            }}
+          >
             Login as Admin
           </Button>
         </Box>

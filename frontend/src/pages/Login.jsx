@@ -32,14 +32,62 @@ function Login() {
   };
 
   return (
-    <Box sx={{ maxWidth: 400, mx: 'auto', mt: 4 }}>
-      <Paper sx={{ p: 4 }}>
-        <Typography variant="h5" gutterBottom>Customer Login</Typography>
+    <Box sx={{ 
+      minHeight: 'calc(100vh - 64px)', // Account for navbar height
+      width: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'relative',
+    }}>
+      <Paper 
+        elevation={3} 
+        sx={{ 
+          maxWidth: 400,
+          width: '100%',
+          p: 4,
+          borderRadius: 2,
+          position: 'relative',
+          backgroundColor: 'rgba(44, 46, 67, 0.85)', // Darker background using theme color
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.37)',
+          '& .MuiInputLabel-root': {
+            color: '#FBD64A',
+            '&.Mui-focused': {
+              color: '#FBD64A'
+            }
+          },
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: 'rgba(251, 214, 74, 0.5)'
+            },
+            '&:hover fieldset': {
+              borderColor: '#FBD64A'
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#FBD64A'
+            },
+            '& input': {
+              color: '#FFFFFF'
+            }
+          }
+        }}
+      >
+        <Typography 
+          variant="h4" 
+          gutterBottom 
+          align="center" 
+          sx={{ mb: 4, fontWeight: 'bold', color: 'white' }}
+        >
+          Customer Login
+        </Typography>
         <Box component="form" onSubmit={handleSubmit}>
           <TextField
             fullWidth
             label="Username"
             margin="normal"
+            size="large"
             value={credentials.username}
             onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
           />
@@ -48,6 +96,7 @@ function Login() {
             type="password"
             label="Password"
             margin="normal"
+            size="large"
             value={credentials.password}
             onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
           />
@@ -55,14 +104,28 @@ function Login() {
             fullWidth 
             variant="contained" 
             type="submit" 
-            sx={{ mt: 2 }}
+            size="large"
+            sx={{ 
+              mt: 3, 
+              mb: 2,
+              bgcolor: '#FBD64A',
+              color: '#2C2E43',
+              '&:hover': {
+                bgcolor: 'rgba(251, 214, 74, 0.8)'
+              }
+            }}
           >
             Login
           </Button>
+          <Box sx={{ textAlign: 'center', mt: 2 }}>
+            <Typography variant="body2" sx={{ color: '#FFFFFF' }}>
+              Don't have an account? {' '}
+              <Link to="/register" style={{ color: '#FBD64A', textDecoration: 'none' }}>
+                Register here
+              </Link>
+            </Typography>
+          </Box>
         </Box>
-        <Typography variant="body2" sx={{ mt: 2, textAlign: 'center' }}>
-          Admin? <Link to="/admin/login">Login here</Link>
-        </Typography>
       </Paper>
       <Notification
         open={notification.open}
