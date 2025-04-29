@@ -13,7 +13,8 @@ function Layout() {
       display: 'flex', 
       flexDirection: 'column', 
       minHeight: '100vh',
-      width: '100%'
+      width: '100%',
+      overflowX: 'hidden' // Prevent horizontal scroll
     }}>
       {isAuthPage && (
         <Box sx={{
@@ -23,9 +24,28 @@ function Layout() {
           right: 0,
           bottom: 0,
           backgroundImage: 'url(/images/2156719.jpg)',
-          backgroundSize: 'cover',
+          backgroundSize: {
+            xs: 'cover',
+            sm: 'cover'
+          },
           backgroundPosition: 'center',
-          zIndex: 0
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: '#2C2E43',
+          height: '100vh',
+          width: '100%',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(44, 46, 67, 0.6)',
+            backdropFilter: 'blur(3px)',
+            '@media (min-width: 600px)': {
+              display: 'none'  // Hide overlay on larger screens
+            }
+          }
         }} />
       )}
       <Navbar sx={{ 
@@ -42,7 +62,12 @@ function Layout() {
           flex: 1,
           position: 'relative',
           zIndex: 1,
-          p: 0
+          px: { xs: 1, sm: 2, md: 3 },
+          py: { xs: 2, sm: 3, md: 4 },
+          '@media (max-width: 600px)': {
+            maxWidth: '100%',
+            overflow: 'hidden'
+          }
         }}
       >
         <Outlet />
