@@ -2,10 +2,11 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { Box, Container } from '@mui/material';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { shouldHideFooter } from '../utils/layoutUtils';
 
 function Layout() {
-  const location = useLocation();
-  const isAuthPage = ['/login', '/register', '/admin/login'].includes(location.pathname);
+  const { pathname } = useLocation();
+  const isAuthPage = ['/login', '/register', '/admin/login'].includes(pathname);
 
   return (
     <Box sx={{ 
@@ -46,7 +47,7 @@ function Layout() {
       >
         <Outlet />
       </Container>
-      <Footer />
+      {!shouldHideFooter(pathname) && <Footer />}
     </Box>
   );
 }
