@@ -12,6 +12,7 @@ import AdminRoute from './components/AdminRoute';
 import AdminLogin from './pages/AdminLogin';
 import AdminServices from './pages/AdminServices';
 import AdminDashboard from './pages/AdminDashboard';
+import Home from './pages/Home';
 
 const theme = createTheme({
   palette: {
@@ -73,6 +74,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              } />
+              <Route path="bookings" element={
                 <ProtectedRoute>
                   <Bookings />
                 </ProtectedRoute>

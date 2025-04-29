@@ -1,8 +1,12 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { Box, Container } from '@mui/material';
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 function Layout() {
+  const location = useLocation();
+  const isAuthPage = ['/login', '/register', '/admin/login'].includes(location.pathname);
+
   return (
     <Box sx={{ 
       display: 'flex', 
@@ -10,21 +14,24 @@ function Layout() {
       minHeight: '100vh',
       width: '100%'
     }}>
-      <Box sx={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundImage: 'url(/images/2156719.jpg)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        zIndex: 0
-      }} />
+      {isAuthPage && (
+        <Box sx={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundImage: 'url(/images/2156719.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          zIndex: 0
+        }} />
+      )}
       <Navbar sx={{ 
         position: 'sticky',
         top: 0,
-        zIndex: 10
+        zIndex: 10,
+        bgcolor: isAuthPage ? 'transparent' : '#2C2E43'
       }} />
       <Container 
         component="main" 
@@ -39,6 +46,7 @@ function Layout() {
       >
         <Outlet />
       </Container>
+      <Footer />
     </Box>
   );
 }

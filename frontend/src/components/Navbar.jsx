@@ -22,13 +22,25 @@ function Navbar() {
           }
         }
       }}>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography 
+          variant="h6" 
+          component={RouterLink} 
+          to="/" 
+          sx={{ 
+            flexGrow: 1, 
+            color: 'white', 
+            textDecoration: 'none',
+            '&:hover': {
+              color: '#FBD64A'
+            }
+          }}
+        >
           Cleaning Service
         </Typography>
         <Box>
           {user ? (
             <>
-              <Button color="inherit" component={RouterLink} to="/">Bookings</Button>
+              <Button color="inherit" component={RouterLink} to="/bookings">Bookings</Button>
               <Button color="inherit" component={RouterLink} to="/services">Services</Button>
               {user.isAdmin && (
                 <>
