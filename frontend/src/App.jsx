@@ -11,6 +11,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 import AdminLogin from './pages/AdminLogin';
 import AdminServices from './pages/AdminServices';
+import AdminDashboard from './pages/AdminDashboard';
 
 const theme = createTheme({
   palette: {
@@ -49,6 +50,7 @@ function App() {
                 element={
                   <AdminRoute>
                     <Routes>
+                      <Route path="dashboard" element={<AdminDashboard />} />
                       <Route path="services" element={<AdminServices />} />
                     </Routes>
                   </AdminRoute>

@@ -19,10 +19,26 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
+        
+        // Check if user exists and is not an admin
+        const [users] = await db.query(
+            'SELECT * FROM users WHERE username = ? AND is_admin = FALSE',
+            [username]
+        );
+        
+        const user = users[0];
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
+
         const result = await User.login(username, password);
+        if (result.user.isAdmin) {
+            return res.status(403).json({ message: 'Please use admin login' });
+        }
+
         res.json(result);
     } catch (error) {
-        res.status(401).json({ message: error.message });
+        res.status(401).json({ message: 'Invalid credentials' });
     }
 });
 

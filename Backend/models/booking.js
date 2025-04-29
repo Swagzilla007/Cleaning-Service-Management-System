@@ -29,6 +29,19 @@ class Booking {
         const [result] = await db.query('DELETE FROM bookings WHERE id = ? AND user_id = ?', [id, userId]);
         return result.affectedRows > 0;
     }
+
+    static async getAllBookings() {
+        const [rows] = await db.query(
+            `SELECT bookings.*, 
+                    services.name as service_name, 
+                    users.username 
+             FROM bookings 
+             LEFT JOIN services ON bookings.service_id = services.id 
+             LEFT JOIN users ON bookings.user_id = users.id 
+             ORDER BY bookings.date_time DESC`
+        );
+        return rows;
+    }
 }
 
 module.exports = Booking;

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Box, TextField, Button, Typography, Paper } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
 import api from '../utils/api';
@@ -34,7 +34,7 @@ function Login() {
   return (
     <Box sx={{ maxWidth: 400, mx: 'auto', mt: 4 }}>
       <Paper sx={{ p: 4 }}>
-        <Typography variant="h5" gutterBottom>Login</Typography>
+        <Typography variant="h5" gutterBottom>Customer Login</Typography>
         <Box component="form" onSubmit={handleSubmit}>
           <TextField
             fullWidth
@@ -60,6 +60,9 @@ function Login() {
             Login
           </Button>
         </Box>
+        <Typography variant="body2" sx={{ mt: 2, textAlign: 'center' }}>
+          Admin? <Link to="/admin/login">Login here</Link>
+        </Typography>
       </Paper>
       <Notification
         open={notification.open}
