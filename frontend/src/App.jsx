@@ -78,14 +78,14 @@ function App() {
                   <Home />
                 </ProtectedRoute>
               } />
-              <Route path="bookings" element={
-                <ProtectedRoute>
-                  <Bookings />
-                </ProtectedRoute>
-              } />
               <Route path="services" element={
                 <ProtectedRoute>
                   <Services />
+                </ProtectedRoute>
+              } />
+              <Route path="services/book" element={
+                <ProtectedRoute>
+                  <Bookings />
                 </ProtectedRoute>
               } />
               <Route path="login" element={<Login />} />

@@ -6,8 +6,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import BookingsIcon from '@mui/icons-material/BookOnline';
 import SettingsIcon from '@mui/icons-material/Settings';
+import BookingsIcon from '@mui/icons-material/Book';
+import HomeIcon from '@mui/icons-material/Home';
+import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
 
 function Navbar() {
   const { user, logout } = useAuth();
@@ -38,12 +40,11 @@ function Navbar() {
 
   const menuItems = isAdmin ? [
     { text: 'Dashboard', path: '/admin/dashboard', icon: <DashboardIcon /> },
-    { text: 'Manage Services', path: '/admin/services', icon: <SettingsIcon /> },
-    { text: 'Bookings', path: '/admin/bookings', icon: <BookingsIcon /> }
+    { text: 'Manage Services', path: '/admin/services', icon: <SettingsIcon /> }
   ] : [
-    { text: 'Home', path: '/' },
-    { text: 'Services', path: '/services' },
-    { text: 'Book Now', path: '/bookings' }
+    { text: 'Home', path: '/', icon: <HomeIcon /> },
+    { text: 'Services', path: '/services', icon: <CleaningServicesIcon /> },
+    { text: 'Book Now', path: '/services/book', icon: <BookingsIcon /> }
   ];
 
   const drawer = (
@@ -199,7 +200,13 @@ function Navbar() {
                       {item.text}
                     </Button>
                   ))}
-                  <Button color="inherit" onClick={handleLogoutClick}>Logout</Button>
+                  <Button 
+                    color="inherit" 
+                    onClick={handleLogoutClick}
+                    startIcon={<LogoutIcon />}
+                  >
+                    Logout
+                  </Button>
                 </>
               ) : (
                 <>

@@ -33,7 +33,7 @@ function Login() {
 
   return (
     <Box sx={{ 
-      minHeight: 'calc(100vh - 64px)', // Account for navbar height
+      minHeight: 'calc(100vh - 64px)', 
       width: '100%',
       display: 'flex',
       alignItems: 'center',
@@ -48,7 +48,7 @@ function Login() {
           p: 4,
           borderRadius: 2,
           position: 'relative',
-          backgroundColor: 'rgba(44, 46, 67, 0.85)', // Darker background using theme color
+          backgroundColor: 'rgba(44, 46, 67, 0.85)', 
           backdropFilter: 'blur(10px)',
           border: '1px solid rgba(255, 255, 255, 0.1)',
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.37)',
